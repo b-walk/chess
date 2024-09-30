@@ -7,6 +7,7 @@ module Chess
 
     @@list = { white: [], black: [] }
 
+    # Lists all pieces currently on the Board
     def self.list
       @@list
     end
@@ -24,6 +25,11 @@ module Chess
       # For Piece subclasses, vectors[:standard] should return an array of the moves that can be executed under any conditions (moves are only checked for legality)
       @vectors = { restricted: [], standard: [] }
       Piece.list[color] << self
+    end
+
+    # Removes a piece when it is captured
+    def kill
+      Piece.list[color].delete(self)
     end
   end
 end
