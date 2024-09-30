@@ -1,20 +1,24 @@
 # frozen_string_literal: true
 
-require_relative 'piece'
+require_relative '../piece'
+
+# Pawn behavior:
+    # Standard:
+      # Can move up by 1
+      # Can capture a piece if it is in the adjacent diagonal space
+    # Restricted:
+      # Can move up by 2 if it is in its original position
+      # En-passant:
+        # Can capture a piece if it moved by 2 to a horizontally adjacent square
+        # The capturing piece still ends up in the diagonal space on the side of the captured piece
+      # Promotion:
+        # Pawn can be substituted for a Queen, Bishop, Rook, or Knight if it reaches the opposing color's back rank
 
 module Chess
   class Pawn < Piece
-    VECTORS = {
-      move: [[0, 1]],
-      capture: [[-1, 1], [1, 1]],
-      special: {
-        en_passant: { capture_vectors: [[-1, 0], [1, 0]], move_vectors: [[-1, 1], [1, 1]] } # only permitted when opposing pawn has advanced two spaces forward and is one of the adjacent squares on the rank
-        double: [[0, 2]] # only permitted before pawn has been moved from its initial position
-      }
-    }
-
-    def promote
-      # change vectors to queen's?
+    def initialize(*args, vectors)
+      super(*args)
+      @vectors = vectors
     end
   end
 end 
