@@ -1,6 +1,8 @@
 #frozen_string_literal: true
 
-require_relative 'square'
+# Requires all piece dependencies
+require_relative 'piece'
+Dir["./pieces/*"].each { |file| require file }
 
 module Chess
   # Board objects allow legal manipulation of piece data by human players
@@ -8,21 +10,14 @@ module Chess
     attr_reader :squares
 
     def initialize
-      @squares = set_empty_board
+      @squares = Array.new(64)
+      set_pieces
     end
 
     private
 
-    def set_empty_board
-      Array.new(64) { |i| Square.new(rank_at(i), file_at(i)) }
-    end
-
-    def rank_at(i)
-      i / 8
-    end
-
-    def file_at(i)
-      i % 8
+    def set_pieces
+      # Iterate through @squares, assigning their values to new pieces as appropriate
     end
   end
 end
